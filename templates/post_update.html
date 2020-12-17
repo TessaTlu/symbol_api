@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Notes
+{% endblock %}
+{% block body %}
+<div class = "container mt-5">
+    <h1>Note your toughts</h1>
+    <form method = "post">
+            <textarea name ="text" id="text" class="form-control" placeholder="Type your text"> {{ article.text }} </textarea><br>
+            <input type ="submit" class = "btn btn-succes" value="Update">
+    </form>
+</div>
+{% endblock %}

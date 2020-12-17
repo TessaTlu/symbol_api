@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+All notes
+{% endblock %}
+{% block body %}
+<div class = 'container'>
+    <form method = "post">
+        {% if target_message %}
+        <textarea name ="text" id="text" class="form-control" placeholder="Search">{{target_message}}</textarea><br>
+        {% else %}
+        <textarea name ="text" id="text" class="form-control" placeholder="Search"></textarea><br>
+        {% endif %}
+        <input type ="submit" class ="btn btn-succes" value ="jump">
+    </form>
+<h1>Last posts</h1>
+    {% if articles %}
+    {% for el in articles %}
+    <div class ="alert alert-dark">
+        <h2>{{ el.rubrics }}</h2>
+        <p>{{ el.text }}</p>
+        <p><b>Date: {{ el.created_date }}</b></p>
+        <a href="/posts/{{ el.id }}" class ="btn btn-warning">Details</a>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
