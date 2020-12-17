@@ -7,7 +7,7 @@ import psycopg2
 app = Flask(__name__)
 
 pg_user = "postgres"
-pg_host = "/temp"
+pg_host = "localhost"
 pg_pwd = "4221"
 pg_port = "5432"
 pg_db = "symbol_api"
@@ -19,7 +19,7 @@ check_exist = open("check.txt", "r")
 exist = check_exist.read()
 exist = bool(exist)
 print(exist)
-csv_file_path = "save_me.csv"
+csv_file_path = "posts.csv"
 db = SQLAlchemy(app)
 def LoadData():
     csv_1 = pd.read_csv('save_me.csv')
@@ -40,19 +40,22 @@ class posts(db.Model):
 
 if (not(exist)):
     con = psycopg2.connect(
+        host=pg_host,
         database=pg_db,
         user=pg_user,
         password=pg_pwd
     )
     cur = con.cursor()
-    cur.execute("create table posts(id BIGSERIAL PRIMARY KEY NOT NULL, text text, created_date date, rubrics text)")
+    cur.execute("create table if not exists posts(id BIGSERIAL PRIMARY KEY NOT NULL, text text, created_date date, rubrics text)")
     cur.execute("SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME= %s", ("unique_id",))
-    unique_id_exists = cur.fetchone()
+    unique_id_exists = cur.fetchone() 
+    if(not(unique_id_exists)):
+        cur.execute("ALTER TABLE posts add constraint unique_id UNIQUE (id)")
     con.commit()
 
     print("Entered")
     data = LoadData()
-    file_name = "save_me.csv"
+    file_name = "posts.csv"
     print(type(data))
     for i in range(len(data)):
         current = data.iloc[i]
