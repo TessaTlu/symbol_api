@@ -1,5 +1,5 @@
 # symbol_api
-symbol_api implements sear for a publication by text query.
+symbol_api implements search for a publication by text query.
 
 Here is a short guide how to up server: 
 
