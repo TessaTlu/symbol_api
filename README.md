@@ -6,13 +6,13 @@ Here is a short guide how to up server:
 
 Firstly, to connect to postgres you have to change some parameters in app.py:
 
-  line 9: pg_user - set it to user, declared in enviroment of server
+  line 9: pg_user - set it to user, declared in environment of server
   
   line 10: pg_host - check host in logs of postgres container and type here
   
-  line 11: pg_pwd - set it by password, that you entered in enviroment of server
+  line 11: pg_pwd - set it by password, that you entered in environment of server
   
-  line 12: pg_port - set by value from enviroment or from logs of postgres container
+  line 12: pg_port - set by value from environment or from logs of postgres container
   
   line 13: csv_file_path - set location for your .csv file with data
   
