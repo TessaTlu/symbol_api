@@ -10,7 +10,7 @@ pg_user = "postgres"        ### These lines should be corrected in accordance wi
 pg_host = "localhost"       ### 
 pg_pwd = "4221"             ###
 pg_port = "5432"            ###
-pg_db = "postgres"        ###
+pg_db = "symbol_api"        ###
 csv_file_path = "posts.csv"
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://{username}:{password}@{host}:{port}/{database}".format(username=pg_user, password=pg_pwd, host=pg_host, port=pg_port, database=pg_db)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
@@ -21,9 +21,9 @@ exist = check_exist.read()              ### If file is empty server starting for
 exist = bool(exist)                     ### We will save information about it in boolean <exist>
 print(exist)
 if(exist):
-    print("starting without initialization")
+    print("Starting without initialization")
 else:
-    print("initialization started")
+    print("Initialization started")
 
 db = SQLAlchemy(app)                    ### declaring a db
 def LoadData():
@@ -55,6 +55,7 @@ if (not(exist)):                        ### If we are going to init our database
     cur.execute("truncate posts cascade")
     cur.execute("SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME= %s", ("unique_id",))
     unique_id_exists = cur.fetchone() 
+    print("Initialization done")
     if(not(unique_id_exists)):
         cur.execute("ALTER TABLE posts add constraint unique_id UNIQUE (id)")
     con.commit()
@@ -74,7 +75,7 @@ if (not(exist)):                        ### If we are going to init our database
     file1.close()                       ### closing connection
     con.close()
     cur.close()
-    print("Initialization done")
+    
 
 @app.route("/")
 @app.route("/home")                     ### tracking url's
