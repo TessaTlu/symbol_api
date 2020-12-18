@@ -19,7 +19,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 check_exist = open("check.txt", "r")    ### The first step is reading file
 exist = check_exist.read()              ### If file is empty server starting for the first time
 exist = bool(exist)                     ### We will save information about it in boolean <exist>
-print(exist)
 if(exist):
     print("Starting without initialization")
 else:
